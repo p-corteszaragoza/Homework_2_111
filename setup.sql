@@ -1,0 +1,6 @@
+CREATE TABLE user (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name VARCHAR(45) NOT NULL,
+    last_name VARCHAR(45) NOT NULL,
+    hobbies TEXT DEFAULT NULL,
+    active BOOLEAN DEFAULT 0);
