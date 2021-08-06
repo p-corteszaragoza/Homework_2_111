@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 #from app.database import (
@@ -18,7 +18,8 @@ def get_all_users():
         "ok": True,
         "message": "Success"
     }
-    out["users"] = User.query.all()
+    # out["users"] = User.query.all()
+    out["users"] = [user.to_json() for user in User.query.all()]
     return out 
 
 @app.route("/users", methods=["POST"])
@@ -53,9 +54,7 @@ def get_single_user(uid):
         "ok": True,
         "message": "Success"
     }
-    
-    user_data = request.json
-    #out["user"] = User.query.filter_by(id=uid).first()
+    out["user"] = [User.query.filter_by(id=uid).first()]
     return out
 
 @app.route('/agent')

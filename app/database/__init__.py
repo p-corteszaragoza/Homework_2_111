@@ -1,5 +1,5 @@
 from app.routes import db
-
+import json 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String, nullable=False)
@@ -9,3 +9,12 @@ class User(db.Model):
 
     def __repr__(self):
         return "<User %r>" % self.first_name
+
+    def to_json(self):
+        return {
+            "id": int(self.id),
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "hobbies": self.hobbies,
+            "active": self.active
+        }
