@@ -1,4 +1,4 @@
-from app.database.routes import app
+from app.routes import app
 from flask import current_app
 
 app_ctx = app.app_context()

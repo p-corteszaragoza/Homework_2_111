@@ -1,1 +1,1 @@
-from app.database.routes import app
+from app.routes import app
