@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-
+import json
 #from app.database import (
 #   scan, insert,
 #    deactivate_user, select
@@ -45,7 +45,6 @@ def delete_user(uid):
         "ok": True,
         "message": "Success"
     }
-
     return out, 200
 
 @app.route("/users/<int:uid>", methods=["GET"])
@@ -54,8 +53,11 @@ def get_single_user(uid):
         "ok": True,
         "message": "Success"
     }
-    out["user"] = [User.query.filter_by(id=uid).first()]
-    return out
+    user = User.query.filter_by(id=uid).first()
+    if user is None:
+        return jsonify({'message': 'User does not exists'}), 404
+
+    return jsonify({'user': user.to_json() })
 
 @app.route('/agent')
 def agent():
